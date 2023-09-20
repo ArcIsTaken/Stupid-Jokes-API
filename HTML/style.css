@@ -1,6 +1,6 @@
 /*setting body style*/
 body {
-    background-color: rgb(17, 17, 53);
+    background-color: rgb(0, 1, 24);
   }
 /*main title text coloration*/
   h1 {
@@ -44,12 +44,12 @@ body {
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: "off";
   height: 26px;
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: rgb(17, 17, 53);
+  background-color: rgb(0, 1, 24);
   -webkit-transition: .4s;
   transition: .4s;
 }
