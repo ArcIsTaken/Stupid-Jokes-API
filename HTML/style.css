@@ -1,17 +1,26 @@
 /*setting body style*/
+html {
+  font-family: 'Trebuchet MS';
+}
+
 body {
     background-color: rgb(0, 1, 24);
   }
 /*main title text coloration*/
   h1 {
     color: rgb(218, 228, 236);
-    margin-left: 20px;
+    text-align: center;
+    text-shadow: 0px 0px 5px rgb(162, 183, 216),0px 0px 10px rgb(38, 84, 158);
   }
   h2 {
     color: rgb(218, 228, 236);
+    text-align: center;
+    text-shadow: 0px 0px 2px rgb(162, 183, 216),0px 0px 5px rgb(38, 84, 158);
   }
   h3 {
     color: rgb(174, 197, 216);
+    text-align: center;
+    font-size: 15px;
   }
 
  /* The switch - the box around the slider */
@@ -37,14 +46,15 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgb(0, 99, 16);
+  background-color: rgb(8, 109, 58);
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 .slider:before {
   position: absolute;
-  content: "off";
+  content: "ON";
+  content: rgb(0, 66, 121);
   height: 26px;
   width: 26px;
   left: 4px;
@@ -52,20 +62,27 @@ body {
   background-color: rgb(0, 1, 24);
   -webkit-transition: .4s;
   transition: .4s;
+  text-align: center;
+    line-height: 26px;
+    font-family: 'Trebuchet MS';
+    font-size: 12px;
+    color: rgb(8, 109, 58);
 }
 
 input:checked + .slider {
-  background-color: #550000;
+  background-color: #4b0000;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #550000;
+  box-shadow: 0 0 1px #4b0000;
 }
 
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
+  content: "OFF";
+  color: #350000;
 }
 
 /* Rounded sliders */
@@ -75,4 +92,11 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+/* text under the slider*/
+p {
+  font-size: 12px;
+  position: relative;
+  color: rgb(0, 66, 121);
 }
