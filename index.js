@@ -1,4 +1,7 @@
-document.addEventListener("DOMContentLoaded", (event) => {
+console.log("testing");
+
+
+document.addEventListener("DOMContentLoaded", function () {
   const storedSwitchState = localStorage.getItem("switchState");
   const switchInput = document.getElementById("switch");
 
@@ -11,5 +14,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   switchInput.addEventListener("change", function () {
     localStorage.setItem("switchState", switchInput.checked);
   });
+
+
+
 });
+
 
