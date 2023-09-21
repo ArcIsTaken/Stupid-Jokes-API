@@ -1,6 +1,7 @@
 /*setting body style*/
 html {
   font-family: 'Trebuchet MS';
+  word-wrap: break-word;
 }
 
 body {
@@ -108,6 +109,8 @@ p {
 
 /* setting up the main buttons */
 .button {
+  position: relative;
+  margin: auto;
   background-color: transparent;
   border: 2px solid rgb(218, 228, 236);
   border-radius: 15px;
@@ -122,7 +125,6 @@ p {
   text-shadow: 0px 0px 2px rgb(162, 183, 216),0px 0px 5px rgb(38, 84, 158);
   font-size: 20px;
   font-weight: bolder;
-  margin: 0;
   min-height: 60px;
   min-width: 0;
   outline: none;
@@ -137,9 +139,14 @@ p {
   will-change: transform;
 }
 
+/* seperate .button for alignment */
 .button {
-margin: 4px;
-align-items: center;
+  margin: 5px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .button:disabled {
   pointer-events: none;
@@ -147,7 +154,7 @@ align-items: center;
 
 .button:hover {
   color: #fff;
-  background-color: rgba(218, 228, 236, 0.514);
+  background-color: rgba(218, 228, 236, 0.151);
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
 }
@@ -156,9 +163,6 @@ align-items: center;
   box-shadow: none;
   transform: translateY(0);
 }
-
-/* making a spot for the previously viewed jokes */
-
 
 /* darker margin at top of page */
 .dark-header{
@@ -169,4 +173,76 @@ align-items: center;
   top: 0;
   left: 0;
   z-index: -1;
+  }
+
+  /* darker joke display */
+.joke-window {
+  margin: auto;
+  border: 2px solid rgb(218, 228, 236);
+  border-radius: 10px;
+  background-color: rgb(0, 0, 2);
+  height: 125px;
+  width: 80%;
+  position: relative;
+  top: 1000;
+  z-index: -1;
+}
+
+.joke-display {
+  position: absolute;
+  left: 30%; 
+  transform: translate(-20%); 
+  text-align: left;
+  top: 1050;
+  word-wrap: break-word;
+}
+
+.joke-display p {
+  color: rgb(218, 228, 236);
+  font-size: 15px;
+}
+
+/* making a spot for the previously viewed jokes */
+/* note: its about 1500px down for future reference */
+.previous {
+  position: relative;
+ }
+ 
+ 
+/* scroll box */
+.previousBox {
+  background-color: rgb(0, 0, 2);
+  margin: auto;
+  position: relative;
+  border: 2px solid rgb(218, 228, 236);
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 14px;
+  font-family:  'trebuchet MS';
+  width: 80%;
+  height: 200px;
+  overflow: scroll;
+  color: rgb(218, 228, 236);
+  }
+  
+  /* Scrollbar styles */
+  ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  position: relative;
+  text-align: center;
+  }
+  
+  ::-webkit-scrollbar-track {
+  border: 2px solid rgb(218, 228, 236);
+  border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+  background: rgb(0, 0, 14);  
+  border-radius: 6px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+  background: rgb(0, 0, 14);  
   }
