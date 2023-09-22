@@ -61,16 +61,16 @@ document.addEventListener("DOMContentLoaded", function () {
           if (returnedPun.type === "twopart") {
             jokeDisplay.innerHTML = ">" + returnedPun.setup + "<br>" + ">" + returnedPun.delivery;
             jokeText = ">" + returnedPun.setup + "<br>" + ">" + returnedPun.delivery + "<br>" + " " + "<br>";
-            previouslyViewedJokes.push(jokeText);
-          } else if (returnedPun.type === "single") {
+            pushJokeText();
+          }else if (returnedPun.type === "single") {
             jokeDisplay.innerHTML = returnedPun.joke + "<br>" + " " + "<br>";
             jokeText = returnedPun.joke;
-            previouslyViewedJokes.push(jokeText);
+            pushJokeText();
           } else {
             console.log(returnedPun);
             jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
             jokeText = "-" + "<br>" + " " + "<br>";
-            previouslyViewedJokes.push(jokeText);
+            pushJokeText();
           }
         })
         .catch(error => {
@@ -102,16 +102,16 @@ document.addEventListener("DOMContentLoaded", function () {
           if (returnedProgJoke.type === "twopart") {
             jokeDisplay.innerHTML = ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery;
             jokeText =  ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery + "<br>" + " " + "<br>";
-            previouslyViewedJokes.push(jokeText);
+            pushJokeText();
           } else if (returnedProgJoke.type === "single") {
             jokeDisplay.innerHTML = returnedProgJoke.joke;
             jokeText = jokeText = returnedProgJoke.joke + "<br>" + " " + "<br>";
-            previouslyViewedJokes.push(jokeText);
+            pushJokeText();
           } else {
             console.log(returnedProgJoke);
             jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
             jokeText = "-" + "<br>" + " " + "<br>";
-            previouslyViewedJokes.push(jokeText);
+            pushJokeText();
           }
         })
         .catch(error => {
