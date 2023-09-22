@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const jokeDisplay = document.getElementById("joke-display p");
 
     pun.addEventListener("click", function() {
-      console.log(`https://v2.jokeapi.dev/joke/Pun${safeMode()}`);
+      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Pun${safeMode()}`);
       fetch(`https://v2.jokeapi.dev/joke/Pun${safeMode()}`)
         .then(response => {
           if (!response.ok) {
@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
           //if the type is not listed then it logs the full joke data so i can add the type and dertmine the best way to display it
           if (returnedPun.type === "twopart") {
             jokeDisplay.innerHTML = ">" + returnedPun.setup + "<br>" + ">" + returnedPun.delivery;
+            return ">" + returnedPun.setup + "<br>" + ">" + returnedPun.delivery;
           } else if (returnedPun.type === "single") {
             jokeDisplay.innerHTML = returnedPun.joke;
           } else {
@@ -66,10 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //programming joke button
   (function() {
-    const pun = document.getElementById("prog");
+    const progJoke = document.getElementById("prog");
     const jokeDisplay = document.getElementById("joke-display p");
-
-    pun.addEventListener("click", function() {
+      progJoke.addEventListener("click", function() {
       console.log(`https://v2.jokeapi.dev/joke/Programming${safeMode()}`);
       fetch(`https://v2.jokeapi.dev/joke/Programming${safeMode()}`)
         .then(response => {
@@ -79,9 +79,9 @@ document.addEventListener("DOMContentLoaded", function () {
           return response.json();
         })
         .then(returnedProgJoke => {
-          console.log("Received pun:", returnedProgJoke);
+          console.log("Received Programming Joke:", returnedProgJoke);
           //determines what type of joke the returned joke is, in order to display it correclty
-          //if the type is not listed then it logs the full joke data so i can add the type and dertmine the best way to display it
+          //if the type is not listed then it logs the full joke data so i can add the type and determine the best way to display it
           if (returnedProgJoke.type === "twopart") {
             jokeDisplay.innerHTML = ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery;
           } else if (returnedProgJoke.type === "single") {
@@ -100,6 +100,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   //Random Joke Button
+  (function() {
+    const RandomJoke = document.getElementById("rand");
+    const jokeDisplay = document.getElementById("joke-display p");
+      RandomJoke.addEventListener("click", function() {
+      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Any${safeMode()}`);
+      fetch(`https://v2.jokeapi.dev/joke/Any${safeMode()}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then(returnedRandomJoke => {
+          console.log("Received Random Joke:", returnedRandomJoke);
+          //determines what type of joke the returned joke is, in order to display it correclty
+          //if the type is not listed then it logs the full joke data so i can add the type and determine the best way to display it
+          if (returnedRandomJoke.type === "twopart") {
+            jokeDisplay.innerHTML = ">" + returnedRandomJoke.setup + "<br>" + ">" + returnedRandomJoke.delivery;
+          } else if (returnedRandomJoke.type === "single") {
+            jokeDisplay.innerHTML = returnedRandomJoke.joke;
+          } else {
+            console.log(returnedRandomJoke);
+            jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+          }
+        })
+        .catch(error => {
+          // Handle errors, such as network issues or invalid JSON
+          console.error("There was a problem with the fetch operation:", error);
+        });
+    });
+  })();
+
+  // adding the already seen jokes into the previously viwed array
+  const previouslyViewedJokes = [];
+
+
 
   // End of DOMContentLoaded event listener
 });
