@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
             pushJokeText();
           } else {
             console.log(returnedPun);
-            jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+            jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcIsTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
             jokeText = "-" + "<br>" + " " + "<br>";
             pushJokeText();
           }
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
             pushJokeText();
           } else {
             console.log(returnedProgJoke);
-            jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+            jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcIsTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
             jokeText = "-" + "<br>" + " " + "<br>";
             pushJokeText();
           }
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
             pushJokeText();
           } else {
             console.log(returnedRandomJoke);
-            jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+            jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcIsTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
             //placing the response into the previously viewed array and adding it to the view box
             jokeText = "-" + "<br>" + " " + "<br>";
             pushJokeText();
