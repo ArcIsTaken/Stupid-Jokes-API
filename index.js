@@ -5,6 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
   //testing that the DOM has loaded
   console.log("The Dom is Loaded");
 
+  //setting up previously viewed array
+  let jokeText;
+  const previouslyViewedJokes = [];
+  let previouslyViewedJokesViewport = document.getElementById("previousBox p");
+
+  function pushJokeText() {
+    previouslyViewedJokes.push(jokeText);
+    previouslyViewedJokesViewport.innerHTML = previouslyViewedJokes.join("<br>");
+  }
+
+  //variables for saving safe mode switch state
   const storedSwitchState = localStorage.getItem("switchState");
   const switchInput = document.getElementById("switch");
 
@@ -49,14 +60,17 @@ document.addEventListener("DOMContentLoaded", function () {
           //if the type is not listed then it logs the full joke data so i can add the type and dertmine the best way to display it
           if (returnedPun.type === "twopart") {
             jokeDisplay.innerHTML = ">" + returnedPun.setup + "<br>" + ">" + returnedPun.delivery;
-            return ">" + returnedPun.setup + "<br>" + ">" + returnedPun.delivery + "<br>" + " " + "<br>";
+            jokeText = ">" + returnedPun.setup + "<br>" + ">" + returnedPun.delivery + "<br>" + " " + "<br>";
+            previouslyViewedJokes.push(jokeText);
           } else if (returnedPun.type === "single") {
             jokeDisplay.innerHTML = returnedPun.joke + "<br>" + " " + "<br>";
-            return returnedPun.joke;
+            jokeText = returnedPun.joke;
+            previouslyViewedJokes.push(jokeText);
           } else {
             console.log(returnedPun);
             jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
-            return "-" + "<br>" + " " + "<br>";
+            jokeText = "-" + "<br>" + " " + "<br>";
+            previouslyViewedJokes.push(jokeText);
           }
         })
         .catch(error => {
@@ -71,6 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
   (function() {
     const progJoke = document.getElementById("prog");
     const jokeDisplay = document.getElementById("joke-display p");
+
       progJoke.addEventListener("click", function() {
       console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Programming${safeMode()}`);
       fetch(`https://v2.jokeapi.dev/joke/Programming${safeMode()}`)
@@ -86,14 +101,17 @@ document.addEventListener("DOMContentLoaded", function () {
           //if the type is not listed then it logs the full joke data so i can add the type and determine the best way to display it
           if (returnedProgJoke.type === "twopart") {
             jokeDisplay.innerHTML = ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery;
-            return  ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery + "<br>" + " " + "<br>";
+            jokeText =  ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery + "<br>" + " " + "<br>";
+            previouslyViewedJokes.push(jokeText);
           } else if (returnedProgJoke.type === "single") {
             jokeDisplay.innerHTML = returnedProgJoke.joke;
-            return returnedProgJoke.joke + "<br>" + " " + "<br>";
+            jokeText = jokeText = returnedProgJoke.joke + "<br>" + " " + "<br>";
+            previouslyViewedJokes.push(jokeText);
           } else {
             console.log(returnedProgJoke);
             jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
-            return "-" + "<br>" + " " + "<br>";
+            jokeText = "-" + "<br>" + " " + "<br>";
+            previouslyViewedJokes.push(jokeText);
           }
         })
         .catch(error => {
@@ -108,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
   (function() {
     const RandomJoke = document.getElementById("rand");
     const jokeDisplay = document.getElementById("joke-display p");
+
       RandomJoke.addEventListener("click", function() {
       console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Any${safeMode()}`);
       fetch(`https://v2.jokeapi.dev/joke/Any${safeMode()}`)
@@ -123,14 +142,18 @@ document.addEventListener("DOMContentLoaded", function () {
           //if the type is not listed then it logs the full joke data so i can add the type and determine the best way to display it
           if (returnedRandomJoke.type === "twopart") {
             jokeDisplay.innerHTML = ">" + returnedRandomJoke.setup + "<br>" + ">" + returnedRandomJoke.delivery;
-            return ">" + returnedRandomJoke.setup + "<br>" + ">" + returnedRandomJoke.delivery + "<br>" + " " + "<br>";
+            jokeText = ">" + returnedRandomJoke.setup + "<br>" + ">" + returnedRandomJoke.delivery + "<br>" + " " + "<br>";
+            pushJokeText();
           } else if (returnedRandomJoke.type === "single") {
             jokeDisplay.innerHTML = returnedRandomJoke.joke;
-            return returnedRandomJoke.joke + "<br>" + " " + "<br>";
+            jokeText = returnedRandomJoke.joke + "<br>" + " " + "<br>";
+            pushJokeText();
           } else {
             console.log(returnedRandomJoke);
             jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
-            return "-" + "<br>" + " " + "<br>";
+            //placing the response into the previously viewed array and adding it to the view box
+            jokeText = "-" + "<br>" + " " + "<br>";
+            pushJokeText();
           }
         })
         .catch(error => {
@@ -139,11 +162,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
   })();
-
-  // adding the already seen jokes into the previously viwed array
-  const previouslyViewedJokes = [];
-
-
 
   // End of DOMContentLoaded event listener
 });
