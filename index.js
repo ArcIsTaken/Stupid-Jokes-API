@@ -49,12 +49,14 @@ document.addEventListener("DOMContentLoaded", function () {
           //if the type is not listed then it logs the full joke data so i can add the type and dertmine the best way to display it
           if (returnedPun.type === "twopart") {
             jokeDisplay.innerHTML = ">" + returnedPun.setup + "<br>" + ">" + returnedPun.delivery;
-            return ">" + returnedPun.setup + "<br>" + ">" + returnedPun.delivery;
+            return ">" + returnedPun.setup + "<br>" + ">" + returnedPun.delivery + "<br>" + " " + "<br>";
           } else if (returnedPun.type === "single") {
-            jokeDisplay.innerHTML = returnedPun.joke;
+            jokeDisplay.innerHTML = returnedPun.joke + "<br>" + " " + "<br>";
+            return returnedPun.joke;
           } else {
             console.log(returnedPun);
             jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+            return "-" + "<br>" + " " + "<br>";
           }
         })
         .catch(error => {
@@ -70,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const progJoke = document.getElementById("prog");
     const jokeDisplay = document.getElementById("joke-display p");
       progJoke.addEventListener("click", function() {
-      console.log(`https://v2.jokeapi.dev/joke/Programming${safeMode()}`);
+      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Programming${safeMode()}`);
       fetch(`https://v2.jokeapi.dev/joke/Programming${safeMode()}`)
         .then(response => {
           if (!response.ok) {
@@ -84,11 +86,14 @@ document.addEventListener("DOMContentLoaded", function () {
           //if the type is not listed then it logs the full joke data so i can add the type and determine the best way to display it
           if (returnedProgJoke.type === "twopart") {
             jokeDisplay.innerHTML = ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery;
+            return  ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery + "<br>" + " " + "<br>";
           } else if (returnedProgJoke.type === "single") {
             jokeDisplay.innerHTML = returnedProgJoke.joke;
+            return returnedProgJoke.joke + "<br>" + " " + "<br>";
           } else {
             console.log(returnedProgJoke);
             jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+            return "-" + "<br>" + " " + "<br>";
           }
         })
         .catch(error => {
@@ -118,11 +123,14 @@ document.addEventListener("DOMContentLoaded", function () {
           //if the type is not listed then it logs the full joke data so i can add the type and determine the best way to display it
           if (returnedRandomJoke.type === "twopart") {
             jokeDisplay.innerHTML = ">" + returnedRandomJoke.setup + "<br>" + ">" + returnedRandomJoke.delivery;
+            return ">" + returnedRandomJoke.setup + "<br>" + ">" + returnedRandomJoke.delivery + "<br>" + " " + "<br>";
           } else if (returnedRandomJoke.type === "single") {
             jokeDisplay.innerHTML = returnedRandomJoke.joke;
+            return returnedRandomJoke.joke + "<br>" + " " + "<br>";
           } else {
             console.log(returnedRandomJoke);
             jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+            return "-" + "<br>" + " " + "<br>";
           }
         })
         .catch(error => {
