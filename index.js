@@ -1,6 +1,5 @@
 console.log("testing");
 
-
 document.addEventListener("DOMContentLoaded", function () {
   const storedSwitchState = localStorage.getItem("switchState");
   const switchInput = document.getElementById("switch");
@@ -14,9 +13,20 @@ document.addEventListener("DOMContentLoaded", function () {
   switchInput.addEventListener("change", function () {
     localStorage.setItem("switchState", switchInput.checked);
   });
-
-
-
 });
 
+//safe mode buutton functionality 
+function safeMode () {
+  const safeModeSwitch = document.getElementById("switch");
+  let safeModeStatus;
 
+  safeModeSwitch.addEventListener("click", function(){
+    if (safeModeStatus = false){
+      return console.log(safeModeStatus = "/safemode");
+    } else {
+      return console.log(safeModeStatus = "");
+    }
+  })
+};
+
+safeMode();
