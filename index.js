@@ -19,19 +19,15 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // safe mode button functionality 
-  function safeMode () {
+  function safeMode() {
     const safeModeSwitch = document.getElementById("switch");
-    let safeModeStatus = false; // Initialize with the default value
-    
-    safeModeSwitch.addEventListener("click", function() {
-      if (safeModeStatus === false) {
-        safeModeStatus = "?safe-mode";
-      } else {
-        safeModeStatus = "";
-      }
-    });
+  
+    if (safeModeSwitch.checked === true) {
+      return "";
+    } else {
+      return "?safe-mode";
+    }
   }
-
 
   // retrieve a pun button
   (function() {
@@ -57,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
             jokeDisplay.innerHTML = returnedPun.joke;
           } else {
             console.log(returnedPun);
-            jokeDisplay.innerHTML = "please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+            jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
           }
         })
         .catch(error => {
@@ -69,6 +65,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   //programming joke button
+  (function() {
+    const pun = document.getElementById("prog");
+    const jokeDisplay = document.getElementById("joke-display p");
+
+    pun.addEventListener("click", function() {
+      console.log(`https://v2.jokeapi.dev/joke/Programming${safeMode()}`);
+      fetch(`https://v2.jokeapi.dev/joke/Programming${safeMode()}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then(returnedProgJoke => {
+          console.log("Received pun:", returnedProgJoke);
+          //determines what type of joke the returned joke is, in order to display it correclty
+          //if the type is not listed then it logs the full joke data so i can add the type and dertmine the best way to display it
+          if (returnedProgJoke.type === "twopart") {
+            jokeDisplay.innerHTML = ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery;
+          } else if (returnedProgJoke.type === "single") {
+            jokeDisplay.innerHTML = returnedProgJoke.joke;
+          } else {
+            console.log(returnedProgJoke);
+            jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcWasTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+          }
+        })
+        .catch(error => {
+          // Handle errors, such as network issues or invalid JSON
+          console.error("There was a problem with the fetch operation:", error);
+        });
+    });
+  })();
+
 
   //Random Joke Button
 
