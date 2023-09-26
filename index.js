@@ -14,8 +14,14 @@ document.addEventListener("DOMContentLoaded", function () {
         jokeDisplay.innerHTML = ">" + joke.setup + "<br>" + ">" + joke.delivery;
         jokeText = ">" + joke.setup + "<br>" + ">" + joke.delivery + "<br>" + " " + "<br>";
         pushJokeText();
+      } else if (joke.type === "single") {
+        jokeDisplay.innerHTML = jokeObject.joke;
+        jokeText = jokeText = jokeObject.joke + "<br>" + " " + "<br>";
+        pushJokeText();
       } else {
-        debugger;
+        jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcIsTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+        jokeText = "-" + "<br>" + " " + "<br>";
+        pushJokeText();
       }
     });
   }
