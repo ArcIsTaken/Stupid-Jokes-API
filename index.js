@@ -1,10 +1,26 @@
-//if this appears in the log then the JS is properlly linked to the HTML
-console.log("JS linked");
-
 document.addEventListener("DOMContentLoaded", function () {
-  //testing that the DOM has loaded
-  console.log("The Dom is Loaded");
+  //function to handle the incoming joke array to dusplay them properly and the variables needed
+  let returnedJokeObject;
 
+  function renderJokes () {
+    returnedJokeObject.array.forEach(object => {
+      if (returnedProgJoke.type === "twopart") {
+        jokeDisplay.innerHTML = ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery;
+        jokeText =  ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery + "<br>" + " " + "<br>";
+        pushJokeText();
+      } else if (returnedProgJoke.type === "single") {
+        jokeDisplay.innerHTML = returnedProgJoke.joke;
+        jokeText = jokeText = returnedProgJoke.joke + "<br>" + " " + "<br>";
+        pushJokeText();
+      } else {
+        console.log(returnedProgJoke);
+        jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcIsTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+        jokeText = "-" + "<br>" + " " + "<br>";
+        pushJokeText();
+      }
+    });
+  }
+  
   //setting up previously viewed array
   let jokeText;
   const previouslyViewedJokes = [];
@@ -46,32 +62,35 @@ document.addEventListener("DOMContentLoaded", function () {
     const jokeDisplay = document.getElementById("joke-display p");
 
     pun.addEventListener("click", function() {
-      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Pun${safeMode()}`);
-      fetch(`https://v2.jokeapi.dev/joke/Pun${safeMode()}`)
+      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Pun${safeMode()}?amount=5`);
+      fetch(`https://v2.jokeapi.dev/joke/Pun${safeMode()}?amount=5`)
         .then(response => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
           return response.json();
         })
-        .then(returnedPun => {
-          console.log("Received pun:", returnedPun);
-          //determines what type of joke the returned joke is, in order to display it correclty
-          //if the type is not listed then it logs the full joke data so i can add the type and dertmine the best way to display it
-          if (returnedPun.type === "twopart") {
-            jokeDisplay.innerHTML = ">" + returnedPun.setup + "<br>" + ">" + returnedPun.delivery;
-            jokeText = ">" + returnedPun.setup + "<br>" + ">" + returnedPun.delivery + "<br>" + " " + "<br>";
-            pushJokeText();
-          }else if (returnedPun.type === "single") {
-            jokeDisplay.innerHTML = returnedPun.joke + "<br>" + " " + "<br>";
-            jokeText = returnedPun.joke;
-            pushJokeText();
-          } else {
-            console.log(returnedPun);
-            jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcIsTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
-            jokeText = "-" + "<br>" + " " + "<br>";
-            pushJokeText();
-          }
+        .then(returnedPunsObject => {
+          console.log("Received puns:", returnedPunsObject);
+          returnedJokeObject = returnedPunsObject;
+          returnedJokeObject.array.forEach(object => {
+            if (returnedProgJoke.type === "twopart") {
+              jokeDisplay.innerHTML = ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery + "<br>" + " " + "<br>";
+              jokeText =  ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery + "<br>" + " " + "<br>";
+              pushJokeText();
+            } else if (returnedProgJoke.type === "single") {
+              jokeDisplay.innerHTML = returnedProgJoke.joke;
+              jokeText = jokeText = returnedProgJoke.joke + "<br>" + " " + "<br>";
+              pushJokeText();
+            } else {
+              console.log(returnedProgJoke);
+              jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcIsTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+              jokeText = "-" + "<br>" + " " + "<br>";
+              pushJokeText();
+            }
+          });
+         
+
         })
         .catch(error => {
           // Handle errors, such as network issues or invalid JSON
@@ -80,15 +99,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
-
+/*
   //programming joke button
   (function() {
     const progJoke = document.getElementById("prog");
     const jokeDisplay = document.getElementById("joke-display p");
 
       progJoke.addEventListener("click", function() {
-      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Programming${safeMode()}`);
-      fetch(`https://v2.jokeapi.dev/joke/Programming${safeMode()}`)
+      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Programming${safeMode()}?amount=5`);
+      fetch(`https://v2.jokeapi.dev/joke/Programming${safeMode()}?amount=5`)
         .then(response => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -97,8 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(returnedProgJoke => {
           console.log("Received Programming Joke:", returnedProgJoke);
-          //determines what type of joke the returned joke is, in order to display it correclty
-          //if the type is not listed then it logs the full joke data so i can add the type and determine the best way to display it
           if (returnedProgJoke.type === "twopart") {
             jokeDisplay.innerHTML = ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery;
             jokeText =  ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery + "<br>" + " " + "<br>";
@@ -128,8 +145,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const jokeDisplay = document.getElementById("joke-display p");
 
       RandomJoke.addEventListener("click", function() {
-      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Any${safeMode()}`);
-      fetch(`https://v2.jokeapi.dev/joke/Any${safeMode()}`)
+      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Any${safeMode()}?amount=5`);
+      fetch(`https://v2.jokeapi.dev/joke/Any${safeMode()}?amount=5`)
         .then(response => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -164,4 +181,5 @@ document.addEventListener("DOMContentLoaded", function () {
   })();
 
   // End of DOMContentLoaded event listener
+  */
 });
