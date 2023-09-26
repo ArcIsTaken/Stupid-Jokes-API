@@ -1,22 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
-  //function to handle the incoming joke array to dusplay them properly and the variables needed
-  let returnedJokeObject;
+  
+  //functions to handle the incoming joke array to display them properly
 
-  function renderJokes () {
-    returnedJokeObject.array.forEach(object => {
-      if (returnedProgJoke.type === "twopart") {
-        jokeDisplay.innerHTML = ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery;
-        jokeText =  ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery + "<br>" + " " + "<br>";
-        pushJokeText();
-      } else if (returnedProgJoke.type === "single") {
-        jokeDisplay.innerHTML = returnedProgJoke.joke;
-        jokeText = jokeText = returnedProgJoke.joke + "<br>" + " " + "<br>";
+  function pushJokeText() {
+    previouslyViewedJokes.push(jokeText);
+    previouslyViewedJokesViewport.innerHTML = previouslyViewedJokes.join("<br>");
+  }
+
+  //what do?
+  function renderJokes(jokeObject) {
+    jokeObject.array.forEach(joke => {
+      if (joke.type === "single") {
+        jokeDisplay.innerHTML = ">" + joke.setup + "<br>" + ">" + joke.delivery;
+        jokeText = ">" + joke.setup + "<br>" + ">" + joke.delivery + "<br>" + " " + "<br>";
         pushJokeText();
       } else {
-        console.log(returnedProgJoke);
-        jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcIsTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
-        jokeText = "-" + "<br>" + " " + "<br>";
-        pushJokeText();
+        debugger;
       }
     });
   }
@@ -25,11 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let jokeText;
   const previouslyViewedJokes = [];
   let previouslyViewedJokesViewport = document.getElementById("previousBox p");
-
-  function pushJokeText() {
-    previouslyViewedJokes.push(jokeText);
-    previouslyViewedJokesViewport.innerHTML = previouslyViewedJokes.join("<br>");
-  }
 
   //variables for saving safe mode switch state
   const storedSwitchState = localStorage.getItem("switchState");
@@ -52,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (safeModeSwitch.checked === true) {
       return "";
     } else {
-      return "?safe-mode";
+      return "&safe-mode";
     }
   }
 
@@ -60,45 +54,32 @@ document.addEventListener("DOMContentLoaded", function () {
   (function() {
     const pun = document.getElementById("pun");
     const jokeDisplay = document.getElementById("joke-display p");
-
+  
     pun.addEventListener("click", function() {
-      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Pun${safeMode()}?amount=5`);
-      fetch(`https://v2.jokeapi.dev/joke/Pun${safeMode()}?amount=5`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then(returnedPunsObject => {
-          console.log("Received puns:", returnedPunsObject);
-          returnedJokeObject = returnedPunsObject;
-          returnedJokeObject.array.forEach(object => {
-            if (returnedProgJoke.type === "twopart") {
-              jokeDisplay.innerHTML = ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery + "<br>" + " " + "<br>";
-              jokeText =  ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery + "<br>" + " " + "<br>";
-              pushJokeText();
-            } else if (returnedProgJoke.type === "single") {
-              jokeDisplay.innerHTML = returnedProgJoke.joke;
-              jokeText = jokeText = returnedProgJoke.joke + "<br>" + " " + "<br>";
-              pushJokeText();
-            } else {
-              console.log(returnedProgJoke);
-              jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcIsTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
-              jokeText = "-" + "<br>" + " " + "<br>";
-              pushJokeText();
-            }
-          });
-         
-
+      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Pun?amount=5${safeMode()}`);
+      fetch(`https://v2.jokeapi.dev/joke/Pun?amount=5${safeMode()}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(returnedPuns => {
+        console.log("Received Puns:", returnedPuns);
+          let returnedPunsArray = returnedPuns;
+          console.log("Returned joke array: " + returnedPuns);
+          renderJokes(returnedPunsArray);
         })
         .catch(error => {
           // Handle errors, such as network issues or invalid JSON
           console.error("There was a problem with the fetch operation:", error);
+        
+          // Render an error message to the user
+          jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
         });
     });
   })();
-
+      
 /*
   //programming joke button
   (function() {
