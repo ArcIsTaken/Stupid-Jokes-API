@@ -56,6 +56,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+
+  
+
   // retrieve a pun button
   (function() {
     const pun = document.getElementById("pun");
@@ -86,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
         jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
       });
     });
-  });
+  })();
 /*
   //programming joke button
   (function() {
