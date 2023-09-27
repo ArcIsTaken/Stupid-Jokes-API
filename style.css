@@ -176,31 +176,6 @@ p {
   z-index: -1;
   }
 
-  /* darker joke display */
-.joke-window {
-  margin: auto;
-  border: 2px solid rgb(218, 228, 236);
-  border-radius: 10px;
-  background-color: rgb(0, 0, 2);
-  height: 125px;
-  width: 80%;
-  position: relative;
-  z-index: -1;
-}
-
-.joke-display {
-  position: absolute;
-  left: 30%; 
-  transform: translate(-20%); 
-  text-align: left;
-  top: 1050;
-  word-wrap: break-word;
-}
-
-.joke-display p {
-  color: rgb(218, 228, 236);
-  font-size: 15px;
-}
 
 /* making a spot for the previously viewed jokes */
 /* note: its about 1500px down for future reference */
@@ -252,3 +227,49 @@ p {
   ::-webkit-scrollbar-thumb:hover {
   background: rgb(0, 0, 14);  
   }
+
+
+  /* Recieved jokes */
+  .joke-window p {
+  color:  rgb(218, 228, 236);
+  font-family: 'Trebuchet MS';
+  font-size: 16px;
+}
+
+.joke-window {
+  background-color: rgb(0, 0, 2);
+  margin: auto;
+  position: relative;
+  border: 2px solid rgb(218, 228, 236);
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 14px;
+  font-family:  'trebuchet MS';
+  width: 80%;
+  height: 200px;
+  overflow: scroll;
+  color: rgb(218, 228, 236);
+  }
+  
+  /* Scrollbar styles */
+  ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  position: relative;
+  text-align: center;
+  }
+  
+  ::-webkit-scrollbar-track {
+  border: 2px solid rgb(218, 228, 236);
+  border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+  background: rgb(0, 0, 14);  
+  border-radius: 6px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+  background: rgb(0, 0, 14);  
+  }
+  
