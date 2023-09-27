@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
+        <title>JokeAPI Project</title>
         <link rel="stylesheet" href="style.css">
         <meta charset="UTF-8" />
         <meta name="description" content="Just an app to work with the JokeAPI as some development practice">
@@ -13,8 +14,8 @@
        <h3>Safe Mode</h3>
     </div>
     <label class="switch">
-        <input type="checkbox" id="switch" unchecked>
-        <span class="slider round">
+        <input type="checkbox" id="switch">
+        <span class="slider round"></span>
       </label>
     <p>Safe Mode disables offensive, dark, and inappropriate jokes.</p>
     <p>Probably isn't perfect.</p>
@@ -22,16 +23,15 @@
     <h1>Dumb Jokes</h1>
     <h2>or maybe they're good, who knows?</h2>
     <h3>Jokes are user uploaded to the JokeAPI, they are not mine.</h3>
-    <button class="button" id="pun" role="button">Puns</button>
-    <button class="button" id="prog" role="button">Programming Jokes</button>
-    <button class="button" id="rand" role="button">Random</button> 
+    <button class="button" id="pun">Puns</button>
+    <button class="button" id="prog">Programming Jokes</button>
+    <button class="button" id="rand">Random</button> 
     <div class="joke-display" id="joke-display">
-        <p id="joke-display p"></p>
     </div>
     <!--divs for the joke display window-->
     <h3>Recieved Jokes</h3>
     <div class="joke-window">
-        <p class="joke-display p"></p>
+        <p id="joke-display_p"></p>
     </div>
     <div class="dark-header">
     </div>
@@ -40,7 +40,7 @@
     <h3>Previously viewed</h3>
     </div>
     <div class="previousBox">
-        <p id="previousBox p"></p>
+        <p id="previousBox_p"></p>
     </div>
    <!--scripts for linking my js-->
    <script src="index.js">

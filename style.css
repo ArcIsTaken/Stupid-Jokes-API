@@ -67,7 +67,6 @@ body {
 .slider:before {
   position: absolute;
   content: "ON";
-  content: rgb(54, 126, 185);
   height: 26px;
   width: 26px;
   left: 4px;
@@ -120,7 +119,6 @@ p {
   background-color: transparent;
   border: 2px solid rgb(218, 228, 236);
   border-radius: 15px;
-  padding: top 10px;
   box-sizing: border-box;
   color: rgb(218, 228, 236);
   cursor: pointer;
@@ -201,7 +199,7 @@ p {
   font-size: 14px;
   font-family:  'trebuchet MS';
   width: 80%;
-  height: 200px;
+  height: 120px;
   overflow: scroll;
   color: rgb(218, 228, 236);
   }
@@ -246,30 +244,8 @@ p {
   font-size: 14px;
   font-family:  'trebuchet MS';
   width: 80%;
-  height: 200px;
+  height: 170px;
   overflow: scroll;
   color: rgb(218, 228, 236);
-  }
-  
-  /* Scrollbar styles */
-  ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-  position: relative;
-  text-align: center;
-  }
-  
-  ::-webkit-scrollbar-track {
-  border: 2px solid rgb(218, 228, 236);
-  border-radius: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-  background: rgb(0, 0, 14);  
-  border-radius: 6px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-  background: rgb(0, 0, 14);  
   }
   

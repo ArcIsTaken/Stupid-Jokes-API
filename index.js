@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  
+  console.log ("DOM is loaded");
   //functions to handle the incoming joke array to display them properly
 
   function pushJokeText() {
@@ -8,18 +8,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   //what do?
-  function renderJokes(jokeObject) {
-    jokeObject.array.forEach(joke => {
+  function renderJokes(jokeObject, jokeDisplay) {
+    jokeObject.forEach(joke => {
       if (joke.type === "single") {
-        jokeDisplay.innerHTML = ">" + joke.setup + "<br>" + ">" + joke.delivery;
-        jokeText = ">" + joke.setup + "<br>" + ">" + joke.delivery + "<br>" + " " + "<br>";
+        jokeDisplay.innerHTML += ">" + joke.setup + "<br>" + ">" + joke.delivery + "<br>" + " " + "<br>";
+        jokeText += ">" + joke.setup + "<br>" + ">" + joke.delivery + "<br>" + " " + "<br>";
         pushJokeText();
-      } else if (joke.type === "single") {
-        jokeDisplay.innerHTML = jokeObject.joke;
-        jokeText = jokeText = jokeObject.joke + "<br>" + " " + "<br>";
+      } else if (joke.type === "twopart") {
+        jokeDisplay.innerHTML += ">" + joke.setup + "<br>" + ">" + joke.delivery + "<br>" + " " + "<br>";
+        jokeText += ">" + joke.setup + "<br>" + ">" + joke.delivery + "<br>" + " " + "<br>";
         pushJokeText();
       } else {
-        jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcIsTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
+        jokeDisplay.innerHTML = "You have encountered an error or an unknown joke type. Please contact ArcIsTaken on GitHub for assistance.";
         jokeText = "-" + "<br>" + " " + "<br>";
         pushJokeText();
       }
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //setting up previously viewed array
   let jokeText;
   const previouslyViewedJokes = [];
-  let previouslyViewedJokesViewport = document.getElementById("previousBox p");
+  let previouslyViewedJokesViewport = document.getElementById("previousBox_p");
 
   //variables for saving safe mode switch state
   const storedSwitchState = localStorage.getItem("switchState");
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // retrieve a pun button
   (function() {
     const pun = document.getElementById("pun");
-    const jokeDisplay = document.getElementById("joke-display p");
+    const jokeDisplay = document.getElementById("joke-display_p");
   
     pun.addEventListener("click", function() {
       console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Pun?amount=5${safeMode()}`);
@@ -72,20 +72,21 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then(returnedPuns => {
         console.log("Received Puns:", returnedPuns);
-          let returnedPunsArray = returnedPuns;
-          console.log("Returned joke array: " + returnedPuns);
-          renderJokes(returnedPunsArray);
-        })
-        .catch(error => {
-          // Handle errors, such as network issues or invalid JSON
-          console.error("There was a problem with the fetch operation:", error);
-        
-          // Render an error message to the user
-          jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
-        });
+        if (Array.isArray(returnedPuns.jokes)) {
+          let returnedPunsArray = returnedPuns.jokes;
+          console.log("Returned joke array: " + returnedPunsArray);
+          renderJokes(returnedPunsArray, jokeDisplay);
+        }
+      })
+      .catch(error => {
+        // Handle errors, such as network issues or invalid JSON
+        console.error("There was a problem with the fetch operation:", error);
+    
+        // Render an error message to the user
+        jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
+      });
     });
-  })();
-      
+  });
 /*
   //programming joke button
   (function() {
