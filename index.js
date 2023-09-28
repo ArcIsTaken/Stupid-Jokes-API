@@ -10,18 +10,19 @@ document.addEventListener("DOMContentLoaded", function () {
   //iterates over the returned jokes and displays them properly. also resets the joke window
   function renderJokes(jokeObject, jokeDisplay) {
     jokeDisplay.innerHTML = "";
+
     jokeObject.forEach(joke => {
       if (joke.type === "single") {
-        jokeDisplay.innerHTML += ">" + joke.setup + "<br>" + ">" + joke.delivery + "<br>" + " " + "<br>";
-        jokeText += ">" + joke.setup + "<br>" + ">" + joke.delivery + "<br>" + " " + "<br>";
+        jokeDisplay.innerHTML += joke.joke  + "<br>" + " " + "<br>";
+        jokeText +=  joke.joke  + "<br>" + " " + "<br>";
         pushJokeText();
       } else if (joke.type === "twopart") {
         jokeDisplay.innerHTML += ">" + joke.setup + "<br>" + ">" + joke.delivery + "<br>" + " " + "<br>";
         jokeText += ">" + joke.setup + "<br>" + ">" + joke.delivery + "<br>" + " " + "<br>";
         pushJokeText();
       } else {
-        jokeDisplay.innerHTML = "You have encountered an error or an unknown joke type. Please contact ArcIsTaken on GitHub for assistance.";
-        jokeText = "-" + "<br>" + " " + "<br>";
+        jokeDisplay.innerHTML += "You have encountered an error or an unknown joke type. Please contact ArcIsTaken on GitHub for assistance.";
+        jokeText += "-" + "<br>" + " " + "<br>";
         pushJokeText();
       }
     });
@@ -91,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   })();
-/*
+
   //programming joke button
   (function() {
     const progJoke = document.getElementById("prog");
@@ -106,27 +107,27 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           return response.json();
         })
-        .then(returnedProgJoke => {
-          console.log("Received Programming Joke:", returnedProgJoke);
-          if (returnedProgJoke.type === "twopart") {
-            jokeDisplay.innerHTML = ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery;
-            jokeText =  ">" + returnedProgJoke.setup + "<br>" + ">" + returnedProgJoke.delivery + "<br>" + " " + "<br>";
-            pushJokeText();
-          } else if (returnedProgJoke.type === "single") {
-            jokeDisplay.innerHTML = returnedProgJoke.joke;
-            jokeText = jokeText = returnedProgJoke.joke + "<br>" + " " + "<br>";
-            pushJokeText();
-          } else {
-            console.log(returnedProgJoke);
-            jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcIsTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
-            jokeText = "-" + "<br>" + " " + "<br>";
-            pushJokeText();
-          }
-        })
-        .catch(error => {
-          // Handle errors, such as network issues or invalid JSON
-          console.error("There was a problem with the fetch operation:", error);
-        });
+        .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(returnedPuns => {
+        console.log("Received Puns:", returnedPuns);
+        if (Array.isArray(returnedPuns.jokes)) {
+          let returnedPunsArray = returnedPuns.jokes;
+          console.log("Returned joke array: " + returnedPunsArray);
+          renderJokes(returnedPunsArray, jokeDisplay);
+        }
+      })
+      .catch(error => {
+        // Handle errors, such as network issues or invalid JSON
+        console.error("There was a problem with the fetch operation:", error);
+    
+        // Render an error message to the user
+        jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
+      });
     });
   })();
 
@@ -173,5 +174,4 @@ document.addEventListener("DOMContentLoaded", function () {
   })();
 
   // End of DOMContentLoaded event listener
-  */
 });
