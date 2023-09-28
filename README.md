@@ -5,7 +5,9 @@ This is a simple program built for the Flatiron Phase 1 Final Project. It lets y
 
 How it Works
 
-This program uses GET requests to the JokeAPI to fetch jokes, which it then shows to you. Here's how to use it:
+This program uses GET requests to the JokeAPI to fetch jokes, which it then shows to you. It does this by fetching an array of 5 jokes from the API, which it then iterates over to determine the type of each joke, and display that joke type properly. if the type is unknown it will let you know in the display window.
+
+Here's how to use it:
 
 Choose Your Joke Type: Just click on the button for the type of joke you want.
 
