@@ -96,29 +96,23 @@ document.addEventListener("DOMContentLoaded", function () {
   //programming joke button
   (function() {
     const progJoke = document.getElementById("prog");
-    const jokeDisplay = document.getElementById("joke-display p");
+    const jokeDisplay = document.getElementById("joke-display_p");
 
       progJoke.addEventListener("click", function() {
-      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Programming${safeMode()}?amount=5`);
-      fetch(`https://v2.jokeapi.dev/joke/Programming${safeMode()}?amount=5`)
+      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Programming?amount=5${safeMode()}`);
+      fetch(`https://v2.jokeapi.dev/joke/Programming?amount=5${safeMode()}`)
         .then(response => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
           return response.json();
-        })
-        .then(response => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
       })
-      .then(returnedPuns => {
-        console.log("Received Puns:", returnedPuns);
-        if (Array.isArray(returnedPuns.jokes)) {
-          let returnedPunsArray = returnedPuns.jokes;
-          console.log("Returned joke array: " + returnedPunsArray);
-          renderJokes(returnedPunsArray, jokeDisplay);
+      .then(returnedProgJoke => {
+        console.log("Received Programming Jokes:", returnedProgJoke);
+        if (Array.isArray(returnedProgJoke.jokes)) {
+          let returnedProgJokeArray = returnedProgJoke.jokes;
+          console.log("Returned programming joke array: " + returnedProgJokeArray);
+          renderJokes(returnedProgJokeArray, jokeDisplay);
         }
       })
       .catch(error => {
@@ -135,42 +129,32 @@ document.addEventListener("DOMContentLoaded", function () {
   //Random Joke Button
   (function() {
     const RandomJoke = document.getElementById("rand");
-    const jokeDisplay = document.getElementById("joke-display p");
+    const jokeDisplay = document.getElementById("joke-display_p");
 
       RandomJoke.addEventListener("click", function() {
-      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Any${safeMode()}?amount=5`);
-      fetch(`https://v2.jokeapi.dev/joke/Any${safeMode()}?amount=5`)
+      console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Any?amount=5${safeMode()}`);
+      fetch(`https://v2.jokeapi.dev/joke/Any?amount=5${safeMode()}`)
         .then(response => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
           return response.json();
         })
-        .then(returnedRandomJoke => {
-          console.log("Received Random Joke:", returnedRandomJoke);
-          //determines what type of joke the returned joke is, in order to display it correclty
-          //if the type is not listed then it logs the full joke data so i can add the type and determine the best way to display it
-          if (returnedRandomJoke.type === "twopart") {
-            jokeDisplay.innerHTML = ">" + returnedRandomJoke.setup + "<br>" + ">" + returnedRandomJoke.delivery;
-            jokeText = ">" + returnedRandomJoke.setup + "<br>" + ">" + returnedRandomJoke.delivery + "<br>" + " " + "<br>";
-            pushJokeText();
-          } else if (returnedRandomJoke.type === "single") {
-            jokeDisplay.innerHTML = returnedRandomJoke.joke;
-            jokeText = returnedRandomJoke.joke + "<br>" + " " + "<br>";
-            pushJokeText();
-          } else {
-            console.log(returnedRandomJoke);
-            jokeDisplay.innerHTML = "You have encountered and error or unknown joke type, if it's the latter please add joke type or contact ArcIsTaken on GitHub and make him add the joke type." + "<br>" + "More info in log.";
-            //placing the response into the previously viewed array and adding it to the view box
-            jokeText = "-" + "<br>" + " " + "<br>";
-            pushJokeText();
+        .then(returnedRandJoke => {
+          console.log("Received Random Jokes:", returnedRandJoke);
+          if (Array.isArray(returnedRandJoke.jokes)) {
+            let returnedRandJokeArray = returnedRandJoke.jokes;
+            console.log("Returned random joke array: " + returnedRandJokeArray);
+            renderJokes(returnedRandJokeArray, jokeDisplay);
           }
         })
         .catch(error => {
           // Handle errors, such as network issues or invalid JSON
           console.error("There was a problem with the fetch operation:", error);
+          // Render an error message to the user
+          jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
         });
-    });
+      });
   })();
 
   // End of DOMContentLoaded event listener
