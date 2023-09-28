@@ -7,8 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
     previouslyViewedJokesViewport.innerHTML = previouslyViewedJokes.join("<br>");
   }
 
-  //what do?
+  //iterates over the returned jokes and displays them properly. also resets the joke window
   function renderJokes(jokeObject, jokeDisplay) {
+    jokeDisplay.innerHTML = "";
     jokeObject.forEach(joke => {
       if (joke.type === "single") {
         jokeDisplay.innerHTML += ">" + joke.setup + "<br>" + ">" + joke.delivery + "<br>" + " " + "<br>";
