@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //iterates over the returned jokes and displays them properly. also resets the joke window
   function renderJokes(jokeObject, jokeDisplay) {
     jokeDisplay.innerHTML = "";
-
+    
     jokeObject.forEach(joke => {
       if (joke.type === "single") {
         jokeDisplay.innerHTML += joke.joke  + "<br>" + " " + "<br>";
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   
   //setting up previously viewed array
-  let jokeText;
+  let jokeText = "";
   const previouslyViewedJokes = [];
   let previouslyViewedJokesViewport = document.getElementById("previousBox_p");
 
@@ -151,6 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => {
           // Handle errors, such as network issues or invalid JSON
           console.error("There was a problem with the fetch operation:", error);
+
           // Render an error message to the user
           jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
         });
