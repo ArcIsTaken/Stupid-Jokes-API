@@ -1,7 +1,31 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log ("DOM is loaded");
-  //functions to handle the incoming joke array to display them properly
 
+  //safemode functionality---------------------------------------------------------------------------------- 
+  //this is for saving the state of the safemode switch when the page is reloaded
+  const storedSwitchState = localStorage.getItem("switchState");
+  const switchInput = document.getElementById("switch");
+
+  if (storedSwitchState) {
+    switchInput.checked = JSON.parse(storedSwitchState);
+  }
+
+  switchInput.addEventListener("change", function () {
+    localStorage.setItem("switchState", switchInput.checked);
+  });
+
+  // safe mode return value
+  function safeMode() {
+    const safeModeSwitch = document.getElementById("switch");
+  
+    if (safeModeSwitch.checked === true) {
+      return "";
+    } else {
+      return "&safe-mode";
+    }
+  };
+ //-------------------------------------------------------------------------------------------------------
+ 
+  //functions to handle the incoming joke array to display them properly
   function pushJokeText() {
     previouslyViewedJokes.push(jokeText);
     previouslyViewedJokesViewport.innerHTML = previouslyViewedJokes.join("<br>");
@@ -33,36 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const previouslyViewedJokes = [];
   let previouslyViewedJokesViewport = document.getElementById("previousBox_p");
 
-  //variables for saving safe mode switch state
-  const storedSwitchState = localStorage.getItem("switchState");
-  const switchInput = document.getElementById("switch");
 
-  if (storedSwitchState) {
-    // Retrieve the stored value and set the checkbox state accordingly
-    switchInput.checked = JSON.parse(storedSwitchState);
-  }
-
-  // Add an event listener to the checkbox to update the stored value
-  switchInput.addEventListener("change", function () {
-    localStorage.setItem("switchState", switchInput.checked);
-  });
-
-  // safe mode button functionality 
-  function safeMode() {
-    const safeModeSwitch = document.getElementById("switch");
-  
-    if (safeModeSwitch.checked === true) {
-      return "";
-    } else {
-      return "&safe-mode";
-    }
-  }
-
-
-  
-
-  // retrieve a pun button
-  (function() {
+  // retrieve a pun button--------------------------------------------------------------------------------------------------------
     const pun = document.getElementById("pun");
     const jokeDisplay = document.getElementById("joke-display_p");
   
@@ -84,17 +80,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       })
       .catch(error => {
-        // Handle errors, such as network issues or invalid JSON
+        // Handle errors
         console.error("There was a problem with the fetch operation:", error);
     
         // Render an error message to the user
         jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
       });
     });
-  })();
+  ();
+  //End of puns button-------------------------------------------------------------------------------------------------------------
 
-  //programming joke button
-  (function() {
+  //programming joke button--------------------------------------------------------------------------------------------------------
     const progJoke = document.getElementById("prog");
     const jokeDisplay = document.getElementById("joke-display_p");
 
@@ -123,11 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
         jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
       });
     });
-  })();
+  ();
+  //End of programming jokes button-----------------------------------------------------------------------------------------------
 
 
-  //Random Joke Button
-  (function() {
+  //Random Joke Button------------------------------------------------------------------------------------------------------------
     const RandomJoke = document.getElementById("rand");
     const jokeDisplay = document.getElementById("joke-display_p");
 
@@ -156,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
           jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
         });
       });
-  })();
-
-  // End of DOMContentLoaded event listener
+  ();
+//End of andom Joke Button------------------------------------------------------------------------------------------------------
+// End of DOMContentLoaded event listener
 });
