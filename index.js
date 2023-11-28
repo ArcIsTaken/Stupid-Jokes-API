@@ -1,13 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
+  
+  //some variables
+  const jokeDisplay = document.getElementById("joke-display_p");
 
-  //safemode functionality---------------------------------------------------------------------------------- 
+  //safemode functionality-------------------------------------------------------------------------------------------------------
   //this is for saving the state of the safemode switch when the page is reloaded
   const storedSwitchState = localStorage.getItem("switchState");
   const switchInput = document.getElementById("switch");
 
   if (storedSwitchState) {
     switchInput.checked = JSON.parse(storedSwitchState);
-  }
+  };
 
   switchInput.addEventListener("change", function () {
     localStorage.setItem("switchState", switchInput.checked);
@@ -16,14 +19,13 @@ document.addEventListener("DOMContentLoaded", function () {
   // safe mode return value
   function safeMode() {
     const safeModeSwitch = document.getElementById("switch");
-  
     if (safeModeSwitch.checked === true) {
       return "";
     } else {
       return "&safe-mode";
     }
   };
- //-------------------------------------------------------------------------------------------------------
+ //-------------------------------------------------------------------------------------------------------------------------------
  
   //functions to handle the incoming joke array to display them properly
   function pushJokeText() {
@@ -36,7 +38,11 @@ document.addEventListener("DOMContentLoaded", function () {
     jokeDisplay.innerHTML = "";
     
     jokeObject.forEach(joke => {
-      if (joke.type === "single") {
+     
+     
+     
+     
+     /* if (joke.type === "single") {
         jokeDisplay.innerHTML += joke.joke  + "<br>" + " " + "<br>";
         jokeText +=  joke.joke  + "<br>" + " " + "<br>";
         pushJokeText();
@@ -48,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
         jokeDisplay.innerHTML += "You have encountered an error or an unknown joke type. Please contact ArcIsTaken on GitHub for assistance.";
         jokeText += "-" + "<br>" + " " + "<br>";
         pushJokeText();
-      }
+      } */
     });
   }
   
@@ -60,15 +66,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // retrieve a pun button--------------------------------------------------------------------------------------------------------
     const pun = document.getElementById("pun");
-    const jokeDisplay = document.getElementById("joke-display_p");
   
     pun.addEventListener("click", function() {
       console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Pun?amount=5${safeMode()}`);
       fetch(`https://v2.jokeapi.dev/joke/Pun?amount=5${safeMode()}`)
       .then(response => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
         return response.json();
       })
       .then(returnedPuns => {
@@ -80,29 +82,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       })
       .catch(error => {
-        // Handle errors
+        // Handle errors - this repeat every button
         console.error("There was a problem with the fetch operation:", error);
-    
-        // Render an error message to the user
+        // Render an error message to the user 
         jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
       });
     });
-  ();
   //End of puns button-------------------------------------------------------------------------------------------------------------
 
   //programming joke button--------------------------------------------------------------------------------------------------------
     const progJoke = document.getElementById("prog");
-    const jokeDisplay = document.getElementById("joke-display_p");
 
       progJoke.addEventListener("click", function() {
       console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Programming?amount=5${safeMode()}`);
       fetch(`https://v2.jokeapi.dev/joke/Programming?amount=5${safeMode()}`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-      })
+          .then(response => {
+            return response.json();
+          })
       .then(returnedProgJoke => {
         console.log("Received Programming Jokes:", returnedProgJoke);
         if (Array.isArray(returnedProgJoke.jokes)) {
@@ -112,28 +108,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       })
       .catch(error => {
-        // Handle errors, such as network issues or invalid JSON
         console.error("There was a problem with the fetch operation:", error);
-    
-        // Render an error message to the user
         jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
       });
     });
-  ();
-  //End of programming jokes button-----------------------------------------------------------------------------------------------
+  //End of programming jokes button------------------------------------------------------------------------------------------------
 
 
-  //Random Joke Button------------------------------------------------------------------------------------------------------------
+  //Random Joke Button-------------------------------------------------------------------------------------------------------------
     const RandomJoke = document.getElementById("rand");
-    const jokeDisplay = document.getElementById("joke-display_p");
 
       RandomJoke.addEventListener("click", function() {
       console.log(`Fetch sent: https://v2.jokeapi.dev/joke/Any?amount=5${safeMode()}`);
       fetch(`https://v2.jokeapi.dev/joke/Any?amount=5${safeMode()}`)
         .then(response => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
           return response.json();
         })
         .then(returnedRandJoke => {
@@ -145,14 +133,10 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         })
         .catch(error => {
-          // Handle errors, such as network issues or invalid JSON
           console.error("There was a problem with the fetch operation:", error);
-
-          // Render an error message to the user
           jokeDisplay.innerHTML = "There was a problem retrieving jokes. Please try again later.";
         });
       });
-  ();
-//End of andom Joke Button------------------------------------------------------------------------------------------------------
+//End of andom Joke Button---------------------------------------------------------------------------------------------------------
 // End of DOMContentLoaded event listener
 });
